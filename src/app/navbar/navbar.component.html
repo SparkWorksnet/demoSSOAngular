@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SparkWorks SSO Demo</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li *ngIf="username"><a>{{username}}</a></li>
+      <li>
+        <a *ngIf="!username" (click)="login()">
+          <span>Login</span>
+        </a>
+        <a *ngIf="username" (click)="logout()">
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
