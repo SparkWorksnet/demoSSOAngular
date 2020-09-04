@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  sparkworksapiurl: 'https://api.sparkworks.net',
+  clientid: 'clientid',
+  clientsecret: 'clientsecret',
+  redirecturl: 'http://localhost:4200',
 };
 
 /*

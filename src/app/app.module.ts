@@ -13,6 +13,9 @@ import {LogoutSuccessComponent} from './logout-success/logout-success.component'
 import {NavbarComponent} from './navbar/navbar.component';
 import {AuthService} from './auth.service';
 import {TokenReceiveComponent} from './token-receive/token-receive.component';
+import {OAuthModule, OAuthService} from 'angular-oauth2-oidc';
+import {ApiModule, Configuration} from 'sparkworks-cargo-client';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -28,12 +31,23 @@ import {TokenReceiveComponent} from './token-receive/token-receive.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OAuthModule.forRoot(),
+    ApiModule
   ],
   providers: [
     OAuthGuard,
     LoggedInGuard,
-    AuthService
+    AuthService,
+    {
+      provide: Configuration,
+      useFactory: (oauthService: OAuthService) => new Configuration({
+        basePath: environment.sparkworksapiurl,
+        accessToken: oauthService.getAccessToken()
+      }),
+      deps: [OAuthService],
+      multi: false
+    },
   ],
   bootstrap: [AppComponent]
 })
