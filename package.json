@@ -27,7 +27,7 @@
     "ngx-cookie-service": "^2.2.0",
     "npm": "^6.11.3",
     "rxjs": "~6.4.0",
-    "sparkworks-cargo-client": "^2.0.3",
+    "sparkworks-cargo-client": "~2.8.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

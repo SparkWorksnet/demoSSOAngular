@@ -7,7 +7,7 @@ export const environment = {
   sparkworksapiurl: 'https://api.sparkworks.net',
   clientid: 'clientid',
   clientsecret: 'clientsecret',
-  redirecturl: 'http://localhost:4200',
+  redirecturl: 'http://localhost:4200/tokenReceive',
 };
 
 /*

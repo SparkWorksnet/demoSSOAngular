@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {environment} from '../environments/environment';
 
 export const authConfig = {
   loginUrl: 'https://sso.sparkworks.net/aa/oauth/authorize',
   tokenEndpoint: 'https://sso.sparkworks.net/aa/oauth/check_token',
   userinfoEndpoint: 'https://sso.sparkworks.net/aa/user',
   logoutUrl: 'https://sso.sparkworks.net/aa/logout',
-  redirectUri: 'http://localhost:4200/tokenReceive',
-  clientId: 'client-id',
-  dummyClientSecret: 'client-secret',
+  redirectUri: environment.redirecturl,
+  clientId: environment.clientid,
+  dummyClientSecret: environment.clientsecret,
   scope: 'read',
   responseType: 'token',
 };
