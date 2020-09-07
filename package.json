@@ -29,7 +29,10 @@
     "rxjs": "~6.4.0",
     "sparkworks-cargo-client": "~2.8.5",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "angular-datatables": "^8.0.0",
+    "datatables.net": "^1.10.20",
+    "datatables.net-dt": "^1.10.20"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.29",
@@ -39,9 +42,11 @@
     "@types/node": "~8.9.4",
     "@types/jasmine": "~3.4.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/datatables.net": "^1.10.19",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "jquery": "3.4.1",
     "karma": "~4.1.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",

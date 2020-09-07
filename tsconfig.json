@@ -22,5 +22,10 @@
   "include": [
     "./src",
     "./node_modules/sparkworks-cargo-client/"
-  ]
+  ],
+  "paths": {
+    "@angular/*": [
+      "../node_modules/@angular/*"
+    ]
+  }
 }

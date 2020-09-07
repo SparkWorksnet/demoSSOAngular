@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   sparkworksapiurl: 'https://api.sparkworks.net',
-  clientid: 'clientid',
-  clientsecret: 'clientsecret',
-  redirecturl: 'http://localhost:4200/tokenReceive',
+  clientid: 'spark',
+  clientsecret: 'spark',
+  redirecturl: 'http://localhost:4200/loading',
 };
 
 /*

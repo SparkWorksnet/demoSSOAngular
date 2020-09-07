@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {environment} from '../environments/environment';
+import {AuthConfig, OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
+import { environment } from '../environments/environment';
 
-export const authConfig = {
-  loginUrl: 'https://sso.sparkworks.net/aa/oauth/authorize',
+export const authConfig: AuthConfig = {
+  loginUrl: 'https://sso.sparkworks.net/aa/oauth/authorize?domain=smartwork',
   tokenEndpoint: 'https://sso.sparkworks.net/aa/oauth/check_token',
   userinfoEndpoint: 'https://sso.sparkworks.net/aa/user',
   logoutUrl: 'https://sso.sparkworks.net/aa/logout',
@@ -13,83 +14,86 @@ export const authConfig = {
   dummyClientSecret: environment.clientsecret,
   scope: 'read',
   responseType: 'token',
+  oidc: false,
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  @Output()
+  isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  username: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router,
+              private oauthService: OAuthService
+  ) {
+    this.oauthService.events.subscribe(event => {
+      if (event instanceof OAuthErrorEvent) {
+        console.error(event);
+      } else {
+        console.warn(event);
+      }
+      if (event.type === 'logout') {
+        localStorage.clear();
+        this.isLoggedIn.emit(false);
+        this.router.navigate(['/logoutSuccess']);
+      }
+    });
+    this.oauthService.configure(authConfig);
+    this.oauthService.setStorage(localStorage);
+    this.oauthService.tryLogin({});
   }
 
-  getRedirectUri(): string {
-    return authConfig.redirectUri;
-  }
-
-  setRedirectUri(redirectUri) {
-    authConfig.redirectUri = redirectUri;
+  obtainAccessToken() {
+    this.oauthService.initImplicitFlow();
   }
 
   login() {
-    const url = authConfig.loginUrl +
-      '?response_type=' + authConfig.responseType +
-      '&client_id=' + authConfig.clientId +
-      '&scope=' + authConfig.scope +
-      '&redirect_uri=' + encodeURIComponent(this.getRedirectUri());
-    window.location.replace(url);
+    this.obtainAccessToken();
   }
 
-  async hasValidAccessToken() {
-    const accessToken = this.getAccessToken();
-    if (accessToken === null) {
+  hasValidAccessToken() {
+    if (this.oauthService.hasValidAccessToken()) {
+      this.isLoggedIn.emit(true);
+      return true;
+    } else {
+      this.isLoggedIn.emit(false);
       return false;
     }
-    const options = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      params: {
-        token: accessToken,
-      }
-    };
-    return await this.http.post(authConfig.tokenEndpoint, null, options).toPromise().then(value => {
-      return true;
-    }).catch(reason => {
-      return false;
-    });
   }
 
   logout() {
-    localStorage.clear();
-    this.router.navigate(['/logoutSuccess']);
+    this.oauthService.logOut();
   }
 
   getAccessToken() {
-    return localStorage.getItem('access_token');
+    return this.oauthService.getAccessToken();
   }
 
-  getUserAuthorities() {
-    if (localStorage.getItem('user') !== null) {
-      return JSON.parse(localStorage.getItem('user'));
+  getUsername() {
+    if (this.getUserDetails() !== null) {
+      return this.getUserDetails().name;
     } else {
       return null;
     }
   }
 
-  getUsername() {
-    if (this.getUserAuthorities() !== null) {
-      return this.getUserAuthorities().name;
-    }
+  getUserDetails() {
+    return JSON.parse(localStorage.getItem('id_token_claims_obj'));
   }
 
-  getRoles() {
-    const roles = [];
-    if (this.getUserAuthorities() !== null) {
-      this.getUserAuthorities().authorities.forEach(elem => {
-        roles.push(elem.authority);
+  getUserAuthorities() {
+    if (this.oauthService.hasValidAccessToken() && localStorage.getItem('id_token_claims_obj') === null) {
+      this.oauthService.loadUserProfile().then(value => {
+        this.username.emit(this.getUserDetails().name);
+      }, reason => {
+        console.error(reason);
       });
     }
-    return roles;
+    return JSON.parse(localStorage.getItem('id_token_claims_obj'));
   }
+
 }

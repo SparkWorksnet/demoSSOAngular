@@ -18,7 +18,8 @@ export class NavbarComponent implements OnInit {
   }
 
   login() {
-    this.authService.login();
+    console.log('[LoginComponent] this.oAuthService.initImplicitFlow()');
+    this.authService.obtainAccessToken();
   }
 
   logout() {

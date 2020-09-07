@@ -1,0 +1,19 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="innerDtTrigger"
+       class="row-border hover table w-100">
+  <thead>
+  <tr style="text-align: center;">
+    <th *ngIf="visibility.uuid === undefined || visibility.uuid">UUID</th>
+    <th *ngIf="visibility.userFriendlyName === undefined || visibility.userFriendlyName">User Friendly Name</th>
+    <th *ngIf="visibility.systemName === undefined || visibility.systemName">System Name</th>
+    <th *ngIf="visibility.groupUuid === undefined || visibility.groupUuid">Group Uuid</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let resource of resources" style="text-align: center">
+    <td *ngIf="visibility.uuid === undefined || visibility.uuid">{{resource.uuid}}</td>
+    <td *ngIf="visibility.userFriendlyName === undefined || visibility.userFriendlyName">{{resource.userFriendlyName}}</td>
+    <td *ngIf="visibility.systemName === undefined || visibility.systemName">{{resource.systemName}}</td>
+    <td *ngIf="visibility.groupUuid === undefined || visibility.groupUuid">{{resource.groupUuid}}</td>
+  </tr>
+  </tbody>
+</table>

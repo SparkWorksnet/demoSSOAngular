@@ -1,0 +1,19 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="innerDtTrigger"
+       class="row-border hover table w-100">
+  <thead>
+  <tr style="text-align: center;">
+    <th *ngIf="visibility.uuid === undefined || visibility.uuid">UUID</th>
+    <th *ngIf="visibility.name === undefined || visibility.name">Name</th>
+    <th *ngIf="visibility.path === undefined || visibility.path">Path</th>
+    <th *ngIf="visibility.createdDate === undefined || visibility.createdDate">Created Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let group of groups" style="text-align: center">
+    <td *ngIf="visibility.uuid === undefined || visibility.uuid">{{group.uuid}}</td>
+    <td *ngIf="visibility.name === undefined || visibility.name">{{group.name}}</td>
+    <td *ngIf="visibility.path === undefined || visibility.path">{{group.path}}</td>
+    <td *ngIf="visibility.createdDate === undefined || visibility.createdDate">{{group.createdDate}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -16,6 +16,10 @@ import {TokenReceiveComponent} from './token-receive/token-receive.component';
 import {OAuthModule, OAuthService} from 'angular-oauth2-oidc';
 import {ApiModule, Configuration} from 'sparkworks-cargo-client';
 import {environment} from '../environments/environment';
+import {LoadingComponent} from './loading/loading.component';
+import { GroupsTableComponent } from './groups-table/groups-table.component';
+import {DataTablesModule} from "angular-datatables";
+import {ResourcesTableComponent} from "./resource-table/resources-table.component";
 
 
 @NgModule({
@@ -25,7 +29,9 @@ import {environment} from '../environments/environment';
     IndexComponent,
     LogoutSuccessComponent,
     NavbarComponent,
-    TokenReceiveComponent
+    LoadingComponent,
+    GroupsTableComponent,
+    ResourcesTableComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,8 @@ import {environment} from '../environments/environment';
     HttpClientModule,
     ReactiveFormsModule,
     OAuthModule.forRoot(),
-    ApiModule
+    ApiModule,
+    DataTablesModule
   ],
   providers: [
     OAuthGuard,
