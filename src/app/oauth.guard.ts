@@ -11,13 +11,10 @@ export class OAuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-    return this.oauthService.hasValidAccessToken().then(value => {
-      if (value) {
-        return true;
-      } else {
-        this.router.navigate(['']);
-        return false;
-      }
-    });
+    if (this.oauthService.hasValidAccessToken()) {
+      return true;
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

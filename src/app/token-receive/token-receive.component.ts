@@ -18,13 +18,9 @@ export class TokenReceiveComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authService.hasValidAccessToken().then(isValid => {
-      if (isValid) {
-        this.router.navigate(['']);
-      }
-    }).catch(reason => {
-      console.error(reason);
-    });
+    if (this.authService.hasValidAccessToken()) {
+      this.router.navigate(['']);
+    }
 
     this.route.fragment.subscribe(fragment => {
       if (fragment === null) {

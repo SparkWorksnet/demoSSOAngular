@@ -11,13 +11,11 @@ export class LoggedInGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-    return this.oauthService.hasValidAccessToken().then(value => {
-      if (!value) {
+    if (!this.oauthService.hasValidAccessToken()) {
         return true;
-      } else {
-        this.router.navigate(['/secured']);
-      }
-    });
+    } else {
+      this.router.navigate(['/secured']);
+    }
   }
 
 }
