@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import { EventEmitter, Injectable, Output, Directive } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthConfig, OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
@@ -17,6 +17,7 @@ export const authConfig: AuthConfig = {
   oidc: false,
 };
 
+@Directive()
 @Injectable({
   providedIn: 'root'
 })

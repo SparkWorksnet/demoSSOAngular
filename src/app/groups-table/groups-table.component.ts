@@ -34,7 +34,7 @@ export class GroupsTableComponent implements OnInit, OnChanges {
 
   innerDtTrigger: Subject<any> = new Subject();
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   isDtInitialized = false;
 
