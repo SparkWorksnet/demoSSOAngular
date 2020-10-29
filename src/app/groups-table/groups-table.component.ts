@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {GroupDTO} from 'sparkworks-cargo-client/model/groupDTO';
+import {GroupDTO} from 'sparkworks-cargo-client';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
 
@@ -34,7 +34,7 @@ export class GroupsTableComponent implements OnInit, OnChanges {
 
   innerDtTrigger: Subject<any> = new Subject();
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   isDtInitialized = false;
 
