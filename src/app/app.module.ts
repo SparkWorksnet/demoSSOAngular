@@ -18,8 +18,8 @@ import {ApiModule, Configuration} from 'sparkworks-cargo-client';
 import {environment} from '../environments/environment';
 import {LoadingComponent} from './loading/loading.component';
 import { GroupsTableComponent } from './groups-table/groups-table.component';
-import {DataTablesModule} from "angular-datatables";
-import {ResourcesTableComponent} from "./resource-table/resources-table.component";
+import {DataTablesModule} from 'angular-datatables';
+import {ResourcesTableComponent} from './resource-table/resources-table.component';
 
 
 @NgModule({

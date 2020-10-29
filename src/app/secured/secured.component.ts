@@ -1,11 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
-import {GroupService} from 'sparkworks-cargo-client/api/group.service';
+import {GroupDTO, GroupService, ResourceDTO, ResourceService} from 'sparkworks-cargo-client';
 import {OAuthService} from 'angular-oauth2-oidc';
-import {ResourceService} from 'sparkworks-cargo-client/api/resource.service';
 import {Subject} from 'rxjs';
-import {GroupDTO} from 'sparkworks-cargo-client/model/groupDTO';
-import {ResourceDTO} from "sparkworks-cargo-client/model/resourceDTO";
 
 @Component({
   selector: 'app-secured',

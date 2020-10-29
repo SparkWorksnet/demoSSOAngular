@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
-import {ResourceDTO} from 'sparkworks-cargo-client/model/resourceDTO';
+import {ResourceDTO} from 'sparkworks-cargo-client';
 
 declare var $: any;
 
